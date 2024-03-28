@@ -28,6 +28,14 @@ final class MyProfileTopView: UIView {
         return img
     }()
     
+    private let userInfoVerticalStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 4
+        stack.distribution = .equalSpacing
+        return stack
+    }()
+    
     let userNameLabel = DOOLabel(font: .pretendard(.body1_bold), color: UIColor(resource: .gray500))
     
     let userDescriptionLabel = DOOLabel(font: .pretendard(.detail1_regular), color: UIColor(resource: .gray500))
@@ -95,10 +103,11 @@ private extension MyProfileTopView {
     
     func setHierarchy() {
         addSubviews(profileImageView,
-                    userNameLabel,
-                    userDescriptionLabel,
+                    userInfoVerticalStackView,
                     editProfileButton,
                     grayDividingView)
+        
+        userInfoVerticalStackView.addArrangedSubviews(userNameLabel, userDescriptionLabel)
     }
     
     func setLayout() {
@@ -108,14 +117,9 @@ private extension MyProfileTopView {
             $0.size.equalTo(ScreenUtils.getHeight(56))
         }
         
-        userNameLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(29)
+        userInfoVerticalStackView.snp.makeConstraints {
+            $0.centerY.equalTo(profileImageView)
             $0.leading.equalTo(profileImageView.snp.trailing).offset(20)
-        }
-        
-        userDescriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(userNameLabel.snp.bottom).offset(4)
-            $0.leading.equalTo(userNameLabel)
         }
         
         editProfileButton.snp.makeConstraints {
