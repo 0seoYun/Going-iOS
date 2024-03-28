@@ -28,7 +28,7 @@ final class MakeProfileViewController: UIViewController {
     
     private let naviUnderLineView: UIView = {
         let view = UIView()
-        view.backgroundColor = .gray200
+        view.backgroundColor = .gray100
         return view
     }()
     
