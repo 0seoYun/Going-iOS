@@ -381,7 +381,7 @@ extension ToDoManagerView: UICollectionViewDelegateFlowLayout {
             if indexPath.row == 0 {
                 return CGSize(width: ScreenUtils.getWidth(66), height: ScreenUtils.getHeight(20))
             } else {
-                return CGSize(width: ScreenUtils.getWidth(140), height: ScreenUtils.getHeight(18))
+                return CGSize(width: ScreenUtils.getWidth(127), height: ScreenUtils.getHeight(20))
             }
         } else {
             
