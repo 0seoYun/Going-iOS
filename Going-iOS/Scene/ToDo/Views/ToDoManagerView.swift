@@ -81,7 +81,7 @@ class ToDoManagerView: UIView {
                 btn.layer.borderColor = UIColor(resource: .gray300).cgColor
             }
             
-            config.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 3, bottom: 0, trailing: 0)
+            config.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0)
             config.attributedTitle = attributedTitle
             config.background.cornerRadius = 4
             btn.configuration = config
@@ -279,7 +279,7 @@ extension ToDoManagerView: UICollectionViewDataSource{
                         managerCell.managerButton.layer.borderColor = UIColor(resource: .red500).cgColor
                         config.background.backgroundColor = UIColor.white000
                     }
-                    config.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 3, bottom: 0, trailing: 0)
+                    config.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0)
                     
                     
                 }
@@ -354,7 +354,7 @@ extension ToDoManagerView: UICollectionViewDataSource{
                 }
             }
             config.background.cornerRadius = 4
-            config.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 3, bottom: 0, trailing: 0)
+            config.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0)
             config.attributedTitle = attributedTitle
             managerCell.managerButton.configuration = config
         }
