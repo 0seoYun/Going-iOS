@@ -32,6 +32,10 @@ class ToDoManagerView: UIView {
     }()
 
     var name: String = ""
+    
+    var emojiCount: Int = 0
+    
+    var textWidth: CGFloat = 0
 
     var fromOurTodoParticipants: [Participant] = []
     
@@ -125,6 +129,19 @@ private extension ToDoManagerView {
     func setDelegate() {
         todoManagerCollectionView.delegate = self
         todoManagerCollectionView.dataSource = self
+    }
+    
+    func getTextSize(label: String) -> CGFloat {
+        // 이모지를 고려하여 예상되는 텍스트의 크기를 얻기
+        let textSize = (label as NSString?)?.boundingRect(with:
+                                                            CGSize(width: CGFloat.greatestFiniteMagnitude, height: 20),
+                                                            options: .usesLineFragmentOrigin,
+                                                            attributes: [NSAttributedString.Key.font: UIFont.pretendard(.detail2_regular)],
+                                                            context: nil).size
+
+        let textWidth = textSize?.width ?? 0
+        
+        return textWidth
     }
 }
 
@@ -389,11 +406,17 @@ extension ToDoManagerView: UICollectionViewDelegateFlowLayout {
 
             
             if name.containsEmoji() {
-                return CGSize(width: ScreenUtils.getWidth(60), height: ScreenUtils.getHeight(20))
+                textWidth = getTextSize(label: name)
+                emojiCount = name.getEmojiCount()
+                
+                if emojiCount >= 0 {
+                    return CGSize(width: ScreenUtils.getWidth(textWidth + 14), height: ScreenUtils.getHeight(20))
+                }
             } else {
                 return CGSize(width: ScreenUtils.getWidth(42), height: ScreenUtils.getHeight(20))
             }
         }
+        return CGSize(width: ScreenUtils.getWidth(textWidth + 14), height: ScreenUtils.getHeight(20))
     }
 }
 

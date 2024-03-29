@@ -37,11 +37,11 @@ final class OurToDoCollectionViewCell: UICollectionViewCell {
     
     var todoId: Int = 0
     
-    var textWidth: CGFloat = 0 {
-        didSet {
-            self.managerCollectionView.reloadData()
-        }
-    }
+    var name: String = ""
+    
+    var emojiCount: Int = 0
+    
+    var textWidth: CGFloat = 0
     
     var allocators: [Allocators] = []
     
@@ -70,6 +70,7 @@ final class OurToDoCollectionViewCell: UICollectionViewCell {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         collectionView.isScrollEnabled = false
@@ -150,11 +151,11 @@ private extension OurToDoCollectionViewCell {
         self.managerCollectionView.register(ManagerCollectionViewCell.self, forCellWithReuseIdentifier: ManagerCollectionViewCell.identifier)
     }
     
-    func getTextSize(label: UILabel) -> CGFloat {
+    func getTextSize(label: String) -> CGFloat {
         // 이모지를 고려하여 예상되는 텍스트의 크기를 얻기
-        let textSize = (label.text as NSString?)?.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: label.frame.size.height),
+        let textSize = (label as NSString?)?.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 20),
                                                               options: .usesLineFragmentOrigin,
-                                                              attributes: [NSAttributedString.Key.font: label.font!],
+                                                          attributes: [NSAttributedString.Key.font: UIFont.pretendard(.detail2_regular)],
                                                               context: nil).size
 
         let textWidth = textSize?.width ?? 0
@@ -182,7 +183,7 @@ extension OurToDoCollectionViewCell: UICollectionViewDataSource {
         
         self.todoId = self.ourToDoData?.todoId ?? 0
         self.allocators = self.ourToDoData?.allocators ?? []
-        
+                
         //담당자가 없는 경우
         if self.ourToDoData?.allocators.count == 0 {
             managerCell.isEmpty = true
@@ -204,8 +205,6 @@ extension OurToDoCollectionViewCell: UICollectionViewDataSource {
             }
         }
         
-        textWidth = getTextSize(label: managerCell.managerLabel)
-
         return managerCell
     }
 }
@@ -225,7 +224,24 @@ extension OurToDoCollectionViewCell: UICollectionViewDelegateFlowLayout {
         if ourToDoData?.allocators.count == 0 {
             return CGSize(width: ScreenUtils.getWidth(94) , height: ScreenUtils.getHeight(20))
         } else {
-            return CGSize(width: ScreenUtils.getWidth(textWidth + 14), height: ScreenUtils.getHeight(20))
+            name = ourToDoData?.allocators[indexPath.row].name ?? ""
+            textWidth = getTextSize(label: name)
+            emojiCount = name.getEmojiCount()
+            
+            if name.containsEmoji() {
+                switch emojiCount {
+                case 1 :
+                    return CGSize(width: ScreenUtils.getWidth(textWidth + 14), height: ScreenUtils.getHeight(20))
+                case 2:
+                    return CGSize(width: ScreenUtils.getWidth(textWidth + 14), height: ScreenUtils.getHeight(20))
+                case 3:
+                    return CGSize(width: ScreenUtils.getWidth(textWidth + 14), height: ScreenUtils.getHeight(20))
+                default :
+                    return CGSize(width: ScreenUtils.getWidth(42), height: ScreenUtils.getHeight(20))
+                }
+            } else {
+                return CGSize(width: ScreenUtils.getWidth(42), height: ScreenUtils.getHeight(20))
+            }
         }
     }
 }

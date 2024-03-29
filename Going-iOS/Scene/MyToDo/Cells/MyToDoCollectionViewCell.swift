@@ -54,13 +54,12 @@ class MyToDoCollectionViewCell: UICollectionViewCell {
             self.managerCollectionView.reloadData()
         }
     }
+        
+    var name: String = ""
     
-    var textWidth: CGFloat = 0 {
-        didSet {
-            self.managerCollectionView.reloadData()
-        }
-    }
-
+    var emojiCount: Int = 0
+    
+    var textWidth: CGFloat = 0
     
     // MARK: - UI Components
     
@@ -196,12 +195,13 @@ private extension MyToDoCollectionViewCell {
         label.labelWithImg(composition: attachImg, string)
     }
     
-    func getTextSize(label: UILabel) -> CGFloat {
+    func getTextSize(label: String) -> CGFloat {
         // 이모지를 고려하여 예상되는 텍스트의 크기를 얻기
-        let textSize = (label.text as NSString?)?.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: label.frame.size.height),
-                                                              options: .usesLineFragmentOrigin,
-                                                              attributes: [NSAttributedString.Key.font: label.font!],
-                                                              context: nil).size
+        let textSize = (label as NSString?)?.boundingRect(with:
+                                                            CGSize(width: CGFloat.greatestFiniteMagnitude, height: 20),
+                                                            options: .usesLineFragmentOrigin,
+                                                            attributes: [NSAttributedString.Key.font: UIFont.pretendard(.detail2_regular)],
+                                                            context: nil).size
 
         let textWidth = textSize?.width ?? 0
         
@@ -233,8 +233,6 @@ extension MyToDoCollectionViewCell: UICollectionViewDataSource{
         }else {
             managerCell.managerLabel.text = self.manager[indexPath.row].name
         }
-        textWidth = getTextSize(label: managerCell.managerLabel)
-
         
         // 미완료 / 완료 / 나만보기 태그 색상 세팅
         if isComplete == true {
@@ -273,6 +271,17 @@ extension MyToDoCollectionViewCell: UICollectionViewDelegateFlowLayout {
         if myToDoData?.secret == true {
             return CGSize(width: ScreenUtils.getWidth(66), height: ScreenUtils.getHeight(20))
         } else {
+            name = myToDoData?.allocators[indexPath.row].name ?? ""
+            textWidth = getTextSize(label: name)
+            emojiCount = name.getEmojiCount()
+            
+            if name.containsEmoji() {
+                if emojiCount >= 0 {
+                    return CGSize(width: ScreenUtils.getWidth(textWidth + 14), height: ScreenUtils.getHeight(20))
+                }
+            } else {
+                return CGSize(width: ScreenUtils.getWidth(42), height: ScreenUtils.getHeight(20))
+            }
             return CGSize(width: ScreenUtils.getWidth(textWidth + 14), height: ScreenUtils.getHeight(20))
         }
     }

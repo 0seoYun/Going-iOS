@@ -27,4 +27,15 @@ extension String {
         }
         return false
     }
+    
+    func getEmojiCount() -> Int {
+        var count = 0
+        
+        for scalar in unicodeScalars {
+            if scalar.properties.isEmoji {
+                count += 1
+            }
+        }
+        return count
+    }
 }
