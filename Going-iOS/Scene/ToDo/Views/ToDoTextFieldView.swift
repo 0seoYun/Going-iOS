@@ -31,7 +31,6 @@ class ToDoTextFieldView: UIView {
         tf.setLeftPadding(amount: 12)
         tf.clearButtonMode = .whileEditing
         tf.font = .pretendard(.body3_medi)
-        tf.setPlaceholderColor(UIColor(resource: .gray700))
         tf.textColor = UIColor(resource: .gray700)
         tf.backgroundColor = UIColor(resource: .white000)
         tf.setLeftPadding(amount: 12)
