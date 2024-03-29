@@ -55,6 +55,12 @@ class MyToDoCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    var textWidth: CGFloat = 0 {
+        didSet {
+            self.managerCollectionView.reloadData()
+        }
+    }
+
     
     // MARK: - UI Components
     
@@ -189,6 +195,18 @@ private extension MyToDoCollectionViewCell {
         let attachImg = NSAttributedString(attachment: attachment)
         label.labelWithImg(composition: attachImg, string)
     }
+    
+    func getTextSize(label: UILabel) -> CGFloat {
+        // 이모지를 고려하여 예상되는 텍스트의 크기를 얻기
+        let textSize = (label.text as NSString?)?.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: label.frame.size.height),
+                                                              options: .usesLineFragmentOrigin,
+                                                              attributes: [NSAttributedString.Key.font: label.font!],
+                                                              context: nil).size
+
+        let textWidth = textSize?.width ?? 0
+        
+        return textWidth
+    }
 }
 
 // MARK: - Extension
@@ -215,6 +233,8 @@ extension MyToDoCollectionViewCell: UICollectionViewDataSource{
         }else {
             managerCell.managerLabel.text = self.manager[indexPath.row].name
         }
+        textWidth = getTextSize(label: managerCell.managerLabel)
+
         
         // 미완료 / 완료 / 나만보기 태그 색상 세팅
         if isComplete == true {
@@ -231,6 +251,7 @@ extension MyToDoCollectionViewCell: UICollectionViewDataSource{
                 managerCell.changeLabelColor(color: UIColor(resource: .gray400))
             }
         }
+            
         return managerCell
     }
 }
@@ -252,7 +273,7 @@ extension MyToDoCollectionViewCell: UICollectionViewDelegateFlowLayout {
         if myToDoData?.secret == true {
             return CGSize(width: ScreenUtils.getWidth(66), height: ScreenUtils.getHeight(20))
         } else {
-            return CGSize(width: ScreenUtils.getWidth(42), height: ScreenUtils.getHeight(20))
+            return CGSize(width: ScreenUtils.getWidth(textWidth + 14), height: ScreenUtils.getHeight(20))
         }
     }
 }
