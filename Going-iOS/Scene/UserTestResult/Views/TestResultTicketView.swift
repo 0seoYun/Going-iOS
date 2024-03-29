@@ -112,7 +112,7 @@ private extension TestResultTicketView {
         descStackView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.trailing.equalToSuperview().inset(11)
-            $0.width.equalTo(ScreenUtils.getWidth(213))
+            $0.width.equalTo(ScreenUtils.getWidth(205))
         }
     }
     
