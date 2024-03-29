@@ -144,7 +144,7 @@ private extension MemoTextView {
             clearButton.isEnabled = false
         } else {
             memoTextView.layer.borderColor = UIColor(resource: .gray700).cgColor
-            self.countMemoCharacterLabel.textColor = UIColor(resource: .gray400)
+            self.countMemoCharacterLabel.textColor = UIColor(resource: .gray700)
             clearButton.isHidden = false
             clearButton.isEnabled = true
         }
