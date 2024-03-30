@@ -14,24 +14,36 @@ final class TestResultTicketView: UIView {
     var firstString: String = "" {
         didSet {
             let imageAttachment = NSTextAttachment(image: UIImage(resource: .resultDot))
-            imageAttachment.bounds = CGRect(x: 0, y: (UIFont.pretendard(.detail3_regular).capHeight - UIImage(resource: .resultDot).size.height).rounded() / 2, width: UIImage(resource: .resultDot).size.width, height: UIImage(resource: .resultDot).size.height)
-            firstDescLabel.labelWithImg(composition: NSAttributedString(attachment: imageAttachment), NSAttributedString(string: " \(firstString)"))
+            imageAttachment.bounds = CGRect(x: 0, 
+                                            y: (UIFont.pretendard(.detail3_regular).capHeight - UIImage(resource: .resultDot).size.height).rounded() / 2,
+                                            width: UIImage(resource: .resultDot).size.width,
+                                            height: UIImage(resource: .resultDot).size.height)
+            firstDescLabel.labelWithImg(composition: NSAttributedString(attachment: imageAttachment), 
+                                        NSAttributedString(string: " \(firstString)"))
         }
     }
     
     var secondString: String = "" {
         didSet {
             let imageAttachment = NSTextAttachment(image: UIImage(resource: .resultDot))
-            imageAttachment.bounds = CGRect(x: 0, y: (UIFont.pretendard(.detail3_regular).capHeight - UIImage(resource: .resultDot).size.height).rounded() / 2, width: UIImage(resource: .resultDot).size.width, height: UIImage(resource: .resultDot).size.height)
-            secondDescLabel.labelWithImg(composition: NSAttributedString(attachment: imageAttachment), NSAttributedString(string: " \(secondString)"))
+            imageAttachment.bounds = CGRect(x: 0, 
+                                            y: (UIFont.pretendard(.detail3_regular).capHeight - UIImage(resource: .resultDot).size.height).rounded() / 2,
+                                            width: UIImage(resource: .resultDot).size.width,
+                                            height: UIImage(resource: .resultDot).size.height)
+            secondDescLabel.labelWithImg(composition: NSAttributedString(attachment: imageAttachment), 
+                                         NSAttributedString(string: " \(secondString)"))
         }
     }
     
     var thirdString: String = "" {
         didSet {
             let imageAttachment = NSTextAttachment(image: UIImage(resource: .resultDot))
-            imageAttachment.bounds = CGRect(x: 0, y: (UIFont.pretendard(.detail3_regular).capHeight - UIImage(resource: .resultDot).size.height).rounded() / 2, width: UIImage(resource: .resultDot).size.width, height: UIImage(resource: .resultDot).size.height)
-            thirdDescLabel.labelWithImg(composition: NSAttributedString(attachment: imageAttachment), NSAttributedString(string: " \(thirdString)"))
+            imageAttachment.bounds = CGRect(x: 0, 
+                                            y: (UIFont.pretendard(.detail3_regular).capHeight - UIImage(resource: .resultDot).size.height).rounded() / 2,
+                                            width: UIImage(resource: .resultDot).size.width,
+                                            height: UIImage(resource: .resultDot).size.height)
+            thirdDescLabel.labelWithImg(composition: NSAttributedString(attachment: imageAttachment), 
+                                        NSAttributedString(string: " \(thirdString)"))
         }
     }
     
@@ -65,9 +77,11 @@ final class TestResultTicketView: UIView {
     lazy var firstDescLabel = DOOLabel(font: .pretendard(.detail2_regular),
                                        color: UIColor(resource: .gray700),
                                        numberOfLine: 2)
+    
     lazy var secondDescLabel = DOOLabel(font: .pretendard(.detail2_regular),
                                         color: UIColor(resource: .gray700),
                                         numberOfLine: 2)
+    
     lazy var thirdDescLabel = DOOLabel(font: .pretendard(.detail2_regular),
                                        color: UIColor(resource: .gray700),
                                        numberOfLine: 2)
