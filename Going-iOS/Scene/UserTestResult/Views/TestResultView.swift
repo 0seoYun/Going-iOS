@@ -43,6 +43,7 @@ final class TestResultView: UIView {
     var nameLabel = DOOLabel(font: .pretendard(.body2_medi), color: UIColor(resource: .gray600))
     
     let userTypeLabel = DOOLabel(font: .pretendard(.head1), color: UIColor(resource: .red500))
+    
     let typeDescLabel = DOOLabel(font: .pretendard(.detail1_regular), color: UIColor(resource: .gray300))
     
     private let tagStackView: UIStackView = {

@@ -230,7 +230,7 @@ private extension EditTravelViewController {
             self.isTravelNameChanged = false
         }
         
-        travelNameView.characterCountLabel.text = "\(text.count) / 15"
+        travelNameView.characterCountLabel.text = "\(text.count)/15"
         currentTravelData.title = text
         
         updateCreateButtonState()
