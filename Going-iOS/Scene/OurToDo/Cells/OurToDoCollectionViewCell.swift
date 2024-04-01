@@ -231,17 +231,8 @@ extension OurToDoCollectionViewCell: UICollectionViewDelegateFlowLayout {
             textWidth = getTextSize(label: name)
             emojiCount = name.getEmojiCount()
             
-            if name.containsEmoji() {
-                switch emojiCount {
-                case 1 :
-                    return CGSize(width: ScreenUtils.getWidth(textWidth + 14), height: ScreenUtils.getHeight(20))
-                case 2:
-                    return CGSize(width: ScreenUtils.getWidth(textWidth + 14), height: ScreenUtils.getHeight(20))
-                case 3:
-                    return CGSize(width: ScreenUtils.getWidth(textWidth + 14), height: ScreenUtils.getHeight(20))
-                default :
-                    return CGSize(width: ScreenUtils.getWidth(42), height: ScreenUtils.getHeight(20))
-                }
+            if name.containsEmoji() && emojiCount <= 3 {
+                return CGSize(width: ScreenUtils.getWidth(textWidth + 14), height: ScreenUtils.getHeight(20))
             } else {
                 return CGSize(width: ScreenUtils.getWidth(42), height: ScreenUtils.getHeight(20))
             }

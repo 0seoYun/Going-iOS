@@ -89,6 +89,7 @@ class MyToDoCollectionViewCell: UICollectionViewCell {
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = UIColor(resource: .gray50)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.isUserInteractionEnabled = true
@@ -278,14 +279,11 @@ extension MyToDoCollectionViewCell: UICollectionViewDelegateFlowLayout {
             textWidth = getTextSize(label: name)
             emojiCount = name.getEmojiCount()
             
-            if name.containsEmoji() {
-                if emojiCount >= 0 {
-                    return CGSize(width: ScreenUtils.getWidth(textWidth + 14), height: ScreenUtils.getHeight(20))
-                }
+            if name.containsEmoji() && emojiCount <= 3 {
+                return CGSize(width: ScreenUtils.getWidth(textWidth + 14), height: ScreenUtils.getHeight(20))
             } else {
                 return CGSize(width: ScreenUtils.getWidth(42), height: ScreenUtils.getHeight(20))
             }
-            return CGSize(width: ScreenUtils.getWidth(textWidth + 14), height: ScreenUtils.getHeight(20))
         }
     }
 }

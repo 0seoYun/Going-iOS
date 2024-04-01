@@ -167,10 +167,10 @@ private extension ToDoManagerView {
             switch type {
             case "secretInfoLabel" :
                 config.background.backgroundColor = .white000
-                attributedTitle.foregroundColor = UIColor.gray200
+                attributedTitle.foregroundColor = .gray200
                 button.layer.borderColor = UIColor(resource: .white000).cgColor
             case "labelWithImage" :
-                attributedTitle.foregroundColor = .red500
+                attributedTitle.foregroundColor = UIColor.red500
                 config.image = UIImage(resource: .icLock)
                 config.imagePlacement = .leading
                 config.imagePadding = 1
@@ -195,7 +195,7 @@ private extension ToDoManagerView {
             config.contentInsets = NSDirectionalEdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0)
             config.attributedTitle = attributedTitle
             button.configuration = config
-        }
+    }
 }
 
 
@@ -253,11 +253,7 @@ extension ToDoManagerView: UICollectionViewDataSource{
         managerCell.managerButton.isEnabled = true
         managerCell.managerButton.tag = indexPath.row
         managerCell.managerButton.addTarget(self, action: #selector(didTapToDoManagerButton(_:)), for: .touchUpInside)
-        
-        //아워투두 -> 조회
-        //다 선택된 옵션
-        //마이투두 -> 조회
-        //혼자할일 + 라벨
+
         
         //아워투두
         if beforeVC == "our" {
