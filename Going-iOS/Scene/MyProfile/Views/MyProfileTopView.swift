@@ -32,13 +32,15 @@ final class MyProfileTopView: UIView {
         let stack = UIStackView()
         stack.axis = .vertical
         stack.spacing = 4
-        stack.distribution = .equalSpacing
+        stack.distribution = .fill
         return stack
     }()
     
     let userNameLabel = DOOLabel(font: .pretendard(.body1_bold), color: UIColor(resource: .gray500))
     
-    let userDescriptionLabel = DOOLabel(font: .pretendard(.detail1_regular), color: UIColor(resource: .gray500))
+    let userDescriptionLabel = DOOLabel(font: .pretendard(.detail1_regular), 
+                                        color: UIColor(resource: .gray500),
+                                        numberOfLine: 2)
     
     lazy var editProfileButton: UIButton = {
         let btn = UIButton()
@@ -120,6 +122,7 @@ private extension MyProfileTopView {
         userInfoVerticalStackView.snp.makeConstraints {
             $0.centerY.equalTo(profileImageView)
             $0.leading.equalTo(profileImageView.snp.trailing).offset(20)
+            $0.width.equalTo(ScreenUtils.getWidth(170))
         }
         
         editProfileButton.snp.makeConstraints {
