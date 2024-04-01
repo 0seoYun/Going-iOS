@@ -70,11 +70,13 @@ class MyToDoCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    private let todoTitleLabel = DOOLabel(
-        font: .pretendard(.body3_medi),
-        color: UIColor(resource: .gray700),
-        alignment: .left
-    )
+    private let todoTitleLabel: DOOLabel = {
+        let label = DOOLabel(font: .pretendard(.body3_medi),
+                             color: UIColor(resource: .gray700),
+                             alignment: .left)
+        label.lineBreakMode = .byTruncatingTail
+        return label
+    }()
     
     private let deadlineLabel = DOOLabel(
         font: .pretendard(.detail3_regular),
@@ -159,6 +161,7 @@ private extension MyToDoCollectionViewCell {
         todoTitleLabel.snp.makeConstraints{
             $0.top.equalToSuperview().inset(ScreenUtils.getWidth(16))
             $0.leading.equalTo(checkButton.snp.trailing).offset(ScreenUtils.getWidth(12))
+            $0.width.equalTo(ScreenUtils.getWidth(182))
         }
         
         managerCollectionView.snp.makeConstraints{
