@@ -253,6 +253,7 @@ private extension UserTestViewController {
         selectedButton?.backgroundColor = UIColor(resource: .gray50)
         selectedButton?.setTitleColor(UIColor(resource: .gray500), for: .normal)
         selectedButton?.layer.borderWidth = 0
+        selectedButton?.titleLabel?.font = .pretendard(.body3_medi)
         selectedButton = nil
 
         if index < userTestDataStruct.count - 1 {
