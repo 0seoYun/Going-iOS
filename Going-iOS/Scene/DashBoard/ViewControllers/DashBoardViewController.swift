@@ -350,16 +350,4 @@ private extension DashBoardViewController {
             }
         }
     }
-    
-//    func filterTravels() {
-//        
-//        guard let travelListDummy else { return }
-//       // 진행 중인 여행 필터링
-//        if filteredTravelList == travelListDummy.trips.filter { $0.day >= 0} {
-//        }
-//        // 완료된 여행 필터링
-//        if filteredTravelList == travelListDummy.trips.filter { $0.day < 0} {
-//        }
-//        dashBoardCollectionView.reloadData()
-//    }
 }
