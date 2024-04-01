@@ -15,6 +15,8 @@ final class DashBoardCollectionViewCell: UICollectionViewCell {
 
     var travelDetailData: Trip? {
         didSet {
+            setGradient()
+            
             guard let detailData = travelDetailData else { return }
             
             self.travelTitleLabel.text = detailData.title
@@ -64,7 +66,15 @@ final class DashBoardCollectionViewCell: UICollectionViewCell {
     
     private let travelStateLabel = DOOLabel(font: .pretendard(.detail2_bold), color: UIColor(resource: .red500))
 
-    // MARK: - Life Cycle
+    private let travelStateGradientView = UIView()
+    
+    private let travelStateWhiteView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(resource: .white000)
+        return view
+    }()
+    
+    // MARK: - Life Cycles
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -88,10 +98,14 @@ private extension DashBoardCollectionViewCell {
     }
     
     func setHierarchy() {
-        self.addSubviews(travelTitleLabel,
-                         calendarImageView,
+        self.addSubviews(calendarImageView,
                          travelDateLabel,
-                         travelStateBackgroundView)
+                         travelTitleLabel,
+                         travelStateWhiteView,
+                         travelStateGradientView)
+        
+        travelStateWhiteView.addSubview(travelStateBackgroundView)
+        
         travelStateBackgroundView.addSubview(travelStateLabel)
     }
     
@@ -112,6 +126,17 @@ private extension DashBoardCollectionViewCell {
             $0.leading.equalTo(calendarImageView.snp.trailing).offset(ScreenUtils.getWidth(4))
         }
         
+        travelStateWhiteView.snp.makeConstraints {
+            $0.top.trailing.bottom.equalToSuperview()
+            $0.leading.equalTo(travelStateBackgroundView.snp.leading).offset(4)
+        }
+        
+        travelStateGradientView.snp.makeConstraints {
+            $0.trailing.equalTo(travelStateWhiteView.snp.leading)
+            $0.width.equalTo(ScreenUtils.getWidth(20))
+            $0.height.equalToSuperview()
+        }
+        
         travelStateBackgroundView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.trailing.equalToSuperview().inset(ScreenUtils.getWidth(16))
@@ -122,5 +147,11 @@ private extension DashBoardCollectionViewCell {
         travelStateLabel.snp.makeConstraints {
             $0.center.equalTo(travelStateBackgroundView)
         }
+    }
+    
+    func setGradient() {
+        travelStateGradientView.setGradient(firstColor: UIColor(red: 1, green: 1, blue: 1, alpha: 0),
+                                            secondColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1),
+                                            axis: .horizontal)
     }
 }
