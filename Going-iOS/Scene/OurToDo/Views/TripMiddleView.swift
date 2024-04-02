@@ -71,7 +71,7 @@ final class TripMiddleView: UIView {
     private lazy var tripFriendsCollectionView: UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.itemSize = CGSize(width: ScreenUtils.getHeight(48) , height: ScreenUtils.getHeight(67))
+        flowLayout.itemSize = CGSize(width: ScreenUtils.getHeight(45) , height: ScreenUtils.getHeight(67))
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.backgroundColor = UIColor.white000
         collectionView.showsHorizontalScrollIndicator = false

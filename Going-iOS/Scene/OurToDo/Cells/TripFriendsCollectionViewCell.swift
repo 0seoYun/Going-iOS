@@ -70,7 +70,7 @@ private extension TripFriendsCollectionViewCell {
         }
         
         profileImageView.snp.makeConstraints {
-            $0.size.equalTo(ScreenUtils.getWidth(45))
+            $0.size.equalTo(ScreenUtils.getHeight(45))
         }
 
         friendNameLabel.snp.makeConstraints{

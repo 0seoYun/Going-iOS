@@ -37,6 +37,12 @@ final class OurToDoCollectionViewCell: UICollectionViewCell {
     
     var todoId: Int = 0
     
+    var name: String = ""
+    
+    var emojiCount: Int = 0
+    
+    var textWidth: CGFloat = 0
+    
     var allocators: [Allocators] = []
     
     // MARK: - UI Properties
@@ -48,11 +54,13 @@ final class OurToDoCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    let todoTitleLabel: UILabel = DOOLabel(
-        font: .pretendard(.body3_medi),
-        color: UIColor(resource: .gray700),
-        alignment: .left
-    )
+    let todoTitleLabel: DOOLabel = {
+        let label = DOOLabel(font: .pretendard(.body3_medi),
+                             color: UIColor(resource: .gray700),
+                             alignment: .left)
+        label.lineBreakMode = .byTruncatingTail
+        return label
+    }()
    
     private lazy var deadlineLabel: UILabel = DOOLabel(
         font: .pretendard(.detail3_regular),
@@ -64,6 +72,7 @@ final class OurToDoCollectionViewCell: UICollectionViewCell {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         collectionView.isScrollEnabled = false
@@ -112,6 +121,7 @@ private extension OurToDoCollectionViewCell {
         }
         todoTitleLabel.snp.makeConstraints{
             $0.top.leading.equalToSuperview().inset(ScreenUtils.getWidth(16))
+            $0.width.equalTo(ScreenUtils.getWidth(212))
         }
         managerCollectionView.snp.makeConstraints{
             $0.leading.trailing.equalToSuperview().inset(ScreenUtils.getWidth(16))
@@ -144,6 +154,17 @@ private extension OurToDoCollectionViewCell {
         self.managerCollectionView.register(ManagerCollectionViewCell.self, forCellWithReuseIdentifier: ManagerCollectionViewCell.identifier)
     }
     
+    func getTextSize(label: String) -> CGFloat {
+        // 이모지를 고려하여 예상되는 텍스트의 크기를 얻기
+        let textSize = (label as NSString?)?.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: 20),
+                                                              options: .usesLineFragmentOrigin,
+                                                          attributes: [NSAttributedString.Key.font: UIFont.pretendard(.detail2_regular)],
+                                                              context: nil).size
+
+        let textWidth = textSize?.width ?? 0
+        
+        return textWidth
+    }
 }
 
 extension OurToDoCollectionViewCell: UICollectionViewDelegate {}
@@ -165,7 +186,7 @@ extension OurToDoCollectionViewCell: UICollectionViewDataSource {
         
         self.todoId = self.ourToDoData?.todoId ?? 0
         self.allocators = self.ourToDoData?.allocators ?? []
-        
+                
         //담당자가 없는 경우
         if self.ourToDoData?.allocators.count == 0 {
             managerCell.isEmpty = true
@@ -186,7 +207,7 @@ extension OurToDoCollectionViewCell: UICollectionViewDataSource {
                 }
             }
         }
-
+        
         return managerCell
     }
 }
@@ -206,12 +227,15 @@ extension OurToDoCollectionViewCell: UICollectionViewDelegateFlowLayout {
         if ourToDoData?.allocators.count == 0 {
             return CGSize(width: ScreenUtils.getWidth(94) , height: ScreenUtils.getHeight(20))
         } else {
-            let name = ourToDoData?.allocators[indexPath.row].name ?? ""
-            if name.containsEmoji() {
-                return CGSize(width: ScreenUtils.getWidth(60), height: ScreenUtils.getHeight(20))
+            name = ourToDoData?.allocators[indexPath.row].name ?? ""
+            textWidth = getTextSize(label: name)
+            emojiCount = name.getEmojiCount()
+            
+            if name.containsEmoji() && emojiCount <= 3 {
+                return CGSize(width: ScreenUtils.getWidth(textWidth + 14), height: ScreenUtils.getHeight(20))
             } else {
                 return CGSize(width: ScreenUtils.getWidth(42), height: ScreenUtils.getHeight(20))
-            }       
+            }
         }
     }
 }

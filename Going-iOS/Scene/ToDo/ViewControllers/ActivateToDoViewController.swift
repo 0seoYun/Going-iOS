@@ -127,6 +127,7 @@ final class ActivateToDoViewController: UIViewController {
             if navigationBarTitle == StringLiterals.ToDo.add {
                 self.todoTextFieldView.todoTextfieldPlaceholder = value[0] as? String ?? ""
                 self.todoTextFieldView.todoTextfield.placeholder = value[0] as? String ?? ""
+                self.todoTextFieldView.todoTextfield.setPlaceholder(placeholder: value[0] as? String ?? "", fontColor: UIColor(resource: .gray200), font: UIFont.pretendard(.body3_medi))
                 self.memoTextView.memoTextviewPlaceholder = value[3] as? String ?? ""
                 self.memoTextView.memoTextView.text = value[3] as? String ?? ""
             } else {

@@ -54,7 +54,12 @@ class MyToDoCollectionViewCell: UICollectionViewCell {
             self.managerCollectionView.reloadData()
         }
     }
+        
+    var name: String = ""
     
+    var emojiCount: Int = 0
+    
+    var textWidth: CGFloat = 0
     
     // MARK: - UI Components
     
@@ -65,11 +70,13 @@ class MyToDoCollectionViewCell: UICollectionViewCell {
         return view
     }()
     
-    private let todoTitleLabel = DOOLabel(
-        font: .pretendard(.body3_medi),
-        color: UIColor(resource: .gray700),
-        alignment: .left
-    )
+    private let todoTitleLabel: DOOLabel = {
+        let label = DOOLabel(font: .pretendard(.body3_medi),
+                             color: UIColor(resource: .gray700),
+                             alignment: .left)
+        label.lineBreakMode = .byTruncatingTail
+        return label
+    }()
     
     private let deadlineLabel = DOOLabel(
         font: .pretendard(.detail3_regular),
@@ -82,6 +89,7 @@ class MyToDoCollectionViewCell: UICollectionViewCell {
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = UIColor(resource: .gray50)
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.isUserInteractionEnabled = true
@@ -154,6 +162,7 @@ private extension MyToDoCollectionViewCell {
         todoTitleLabel.snp.makeConstraints{
             $0.top.equalToSuperview().inset(ScreenUtils.getWidth(16))
             $0.leading.equalTo(checkButton.snp.trailing).offset(ScreenUtils.getWidth(12))
+            $0.width.equalTo(ScreenUtils.getWidth(182))
         }
         
         managerCollectionView.snp.makeConstraints{
@@ -188,6 +197,19 @@ private extension MyToDoCollectionViewCell {
         attachment.bounds = CGRect(x: 0, y: ScreenUtils.getHeight(-1), width: image.size.width, height: image.size.height)
         let attachImg = NSAttributedString(attachment: attachment)
         label.labelWithImg(composition: attachImg, string)
+    }
+    
+    func getTextSize(label: String) -> CGFloat {
+        // 이모지를 고려하여 예상되는 텍스트의 크기를 얻기
+        let textSize = (label as NSString?)?.boundingRect(with:
+                                                            CGSize(width: CGFloat.greatestFiniteMagnitude, height: 20),
+                                                            options: .usesLineFragmentOrigin,
+                                                            attributes: [NSAttributedString.Key.font: UIFont.pretendard(.detail2_regular)],
+                                                            context: nil).size
+
+        let textWidth = textSize?.width ?? 0
+        
+        return textWidth
     }
 }
 
@@ -231,6 +253,7 @@ extension MyToDoCollectionViewCell: UICollectionViewDataSource{
                 managerCell.changeLabelColor(color: UIColor(resource: .gray400))
             }
         }
+            
         return managerCell
     }
 }
@@ -252,7 +275,15 @@ extension MyToDoCollectionViewCell: UICollectionViewDelegateFlowLayout {
         if myToDoData?.secret == true {
             return CGSize(width: ScreenUtils.getWidth(66), height: ScreenUtils.getHeight(20))
         } else {
-            return CGSize(width: ScreenUtils.getWidth(42), height: ScreenUtils.getHeight(20))
+            name = myToDoData?.allocators[indexPath.row].name ?? ""
+            textWidth = getTextSize(label: name)
+            emojiCount = name.getEmojiCount()
+            
+            if name.containsEmoji() && emojiCount <= 3 {
+                return CGSize(width: ScreenUtils.getWidth(textWidth + 14), height: ScreenUtils.getHeight(20))
+            } else {
+                return CGSize(width: ScreenUtils.getWidth(42), height: ScreenUtils.getHeight(20))
+            }
         }
     }
 }
