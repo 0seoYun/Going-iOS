@@ -269,7 +269,7 @@ private extension ChangeMyProfileViewController {
             self.isNameTextFieldGood = true
         }
         
-        nameTextFieldCountLabel.text = "\(text.count) / 3"
+        nameTextFieldCountLabel.text = "\(text.count)/3"
         updateNextButtonState()
     }
     
@@ -293,7 +293,7 @@ private extension ChangeMyProfileViewController {
             self.isTextFieldChanged = false
         }
         
-        descTextFieldCountLabel.text = "\(text.count) / 20"
+        descTextFieldCountLabel.text = "\(text.count)/20"
         
         if text.count > 20 {
             descTextField.layer.borderColor = UIColor(resource: .red500).cgColor
