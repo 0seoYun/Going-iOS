@@ -84,6 +84,11 @@ final class DashBoardCollectionViewCell: UICollectionViewCell {
         setLayout()
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setGradient()
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -150,8 +155,18 @@ private extension DashBoardCollectionViewCell {
     }
     
     func setGradient() {
-        travelStateGradientView.setGradient(firstColor: UIColor(red: 1, green: 1, blue: 1, alpha: 0),
-                                            secondColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1),
-                                            axis: .horizontal)
+        // 기존 그라디언트 레이어 제거
+        travelStateGradientView.layer.sublayers?.removeAll(where: { $0 is CAGradientLayer })
+        
+        // 새 그라디언트 레이어 생성 및 설정
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = travelStateGradientView.bounds
+        gradientLayer.colors = [UIColor(red: 1, green: 1, blue: 1, alpha: 0).cgColor,
+                                UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
+        
+        // 그라디언트 레이어를 뷰의 레이어에 추가
+        travelStateGradientView.layer.addSublayer(gradientLayer)
     }
 }
