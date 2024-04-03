@@ -19,7 +19,7 @@ struct Trip: Response {
     let tripID: Int
     let title, startDate, endDate: String
     let day: Int
-
+    
     enum CodingKeys: String, CodingKey {
         case tripID = "tripId"
         case title, startDate, endDate, day

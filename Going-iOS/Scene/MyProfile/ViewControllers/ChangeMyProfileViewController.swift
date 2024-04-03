@@ -36,7 +36,7 @@ final class ChangeMyProfileViewController: UIViewController {
     lazy var nameTextField: UITextField = {
         let textField = UITextField()
         textField.setLeftPadding(amount: 12)
-        textField.setPlaceholder(placeholder: "3글자 이내로 작성해 주세요", 
+        textField.setPlaceholder(placeholder: "3글자 이내로 작성해 주세요",
                                  fontColor: .gray200,
                                  font: .pretendard(.body3_medi))
         textField.layer.cornerRadius = 6
@@ -81,8 +81,8 @@ final class ChangeMyProfileViewController: UIViewController {
     lazy var descTextField: UITextField = {
         let textField = UITextField()
         textField.setLeftPadding(amount: 12)
-        textField.setPlaceholder(placeholder: "여행을 떠나기 전 설레는 마음을 적어볼까요?", 
-                                 fontColor: UIColor(resource: .gray200), 
+        textField.setPlaceholder(placeholder: "여행을 떠나기 전 설레는 마음을 적어볼까요?",
+                                 fontColor: UIColor(resource: .gray200),
                                  font: .pretendard(.body3_medi))
         textField.layer.cornerRadius = 6
         textField.layer.borderWidth = 1

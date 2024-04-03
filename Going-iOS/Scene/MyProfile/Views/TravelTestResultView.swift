@@ -104,7 +104,7 @@ extension TravelTestResultView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         
-            return travelTestQuestionDummy.count
+        return travelTestQuestionDummy.count
         
         
     }
@@ -135,26 +135,26 @@ extension TravelTestResultView: UICollectionViewDataSource {
             return CGSize(width: 0, height: 0)
         }
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-       
-            guard let cell = travelTestCollectionView.dequeueReusableCell(withReuseIdentifier: TravelTestCollectionViewCell.cellIdentifier, for: indexPath) as? TravelTestCollectionViewCell else { return UICollectionViewCell() }
-            cell.delegate = self
-            cell.travelTestData = travelTestQuestionDummy[indexPath.row]
-            
-            if beforVC == StringLiterals.MyProfile.myTravelProfile && !styleResult.isEmpty{
-//                cell.styleResult = styleResult[indexPath.row]
-                cell.configureButtonColors(with: styleResult[indexPath.row])
-                cell.setButtonDisable()
-            }
-            
-            // 여기서 유저의 이전 선택을 해당 셀에 반영
-            if resultIntArray.count > 0 {
-                let selectedAnswerIndex = resultIntArray[indexPath.row] // 유저가 선택한 인덱스
-                cell.configureButtonColors(with: selectedAnswerIndex)
-            }
-            return cell
+        
+        guard let cell = travelTestCollectionView.dequeueReusableCell(withReuseIdentifier: TravelTestCollectionViewCell.cellIdentifier, for: indexPath) as? TravelTestCollectionViewCell else { return UICollectionViewCell() }
+        cell.delegate = self
+        cell.travelTestData = travelTestQuestionDummy[indexPath.row]
+        
+        if beforVC == StringLiterals.MyProfile.myTravelProfile && !styleResult.isEmpty{
+            //                cell.styleResult = styleResult[indexPath.row]
+            cell.configureButtonColors(with: styleResult[indexPath.row])
+            cell.setButtonDisable()
+        }
+        
+        // 여기서 유저의 이전 선택을 해당 셀에 반영
+        if resultIntArray.count > 0 {
+            let selectedAnswerIndex = resultIntArray[indexPath.row] // 유저가 선택한 인덱스
+            cell.configureButtonColors(with: selectedAnswerIndex)
+        }
+        return cell
     }
 }
 

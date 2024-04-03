@@ -36,7 +36,7 @@ final class UserTestResultScrollView: UIScrollView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-                
+        
         setStyle()
         setHierarchy()
         setLayout()
