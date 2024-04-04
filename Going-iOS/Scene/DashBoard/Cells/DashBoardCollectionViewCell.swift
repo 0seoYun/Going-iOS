@@ -105,8 +105,7 @@ private extension DashBoardCollectionViewCell {
                          travelDateLabel,
                          travelTitleLabel,
                          travelStateGradientView,
-                         travelStateWhiteView
-                         )
+                         travelStateWhiteView)
         
         travelStateWhiteView.addSubview(travelStateBackgroundView)
         
@@ -132,7 +131,7 @@ private extension DashBoardCollectionViewCell {
         
         travelStateWhiteView.snp.makeConstraints {
             $0.top.trailing.bottom.equalToSuperview()
-            $0.leading.equalTo(travelStateBackgroundView.snp.leading).offset(4)
+            $0.leading.equalTo(travelStateBackgroundView.snp.leading).offset(-4)
         }
         
         travelStateGradientView.snp.makeConstraints {
