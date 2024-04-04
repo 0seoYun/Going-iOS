@@ -49,7 +49,7 @@ final class DashBoardCollectionViewCell: UICollectionViewCell {
     
     private let calendarImageView: UIImageView = {
         let img = UIImageView()
-        img.image = UIImage(resource: .icCalendar)
+        img.image = UIImage(resource: .icCalendar).withRenderingMode(.alwaysTemplate)
         return img
     }()
     
