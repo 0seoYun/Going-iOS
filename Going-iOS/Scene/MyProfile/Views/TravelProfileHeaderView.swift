@@ -8,7 +8,7 @@
 import UIKit
 
 final class TravelProfileHeaderView: UIView {
-        
+    
     // MARK: - UI Properties
     
     let segmentedControl: UnderlineSegmentedControlView = {
@@ -25,7 +25,7 @@ final class TravelProfileHeaderView: UIView {
     }()
     
     private let underlineView: UIView = UIView()
-
+    
     // MARK: - LifeCycle
     
     override init(frame: CGRect) {

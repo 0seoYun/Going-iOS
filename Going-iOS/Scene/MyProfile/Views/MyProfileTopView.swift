@@ -38,7 +38,7 @@ final class MyProfileTopView: UIView {
     
     let userNameLabel = DOOLabel(font: .pretendard(.body1_bold), color: UIColor(resource: .gray500))
     
-    let userDescriptionLabel = DOOLabel(font: .pretendard(.detail1_regular), 
+    let userDescriptionLabel = DOOLabel(font: .pretendard(.detail1_regular),
                                         color: UIColor(resource: .gray500),
                                         numberOfLine: 2)
     
@@ -85,7 +85,7 @@ final class MyProfileTopView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-                
+        
         setStyle()
         setHierarchy()
         setLayout()

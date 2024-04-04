@@ -55,9 +55,9 @@ class DashBoardViewController: UIViewController {
         view.backgroundColor = UIColor(resource: .gray50)
         return view
     }()
-
-    private let noDataLabel = DOOLabel(font: .pretendard(.body3_medi), 
-                                       color: UIColor(resource: .gray200), 
+    
+    private let noDataLabel = DOOLabel(font: .pretendard(.body3_medi),
+                                       color: UIColor(resource: .gray200),
                                        text: "새로운 여행을 시작해 보세요")
     
     private let characterImage:  UIImageView = {
@@ -107,7 +107,7 @@ private extension DashBoardViewController {
     func setSegmentDidChange() {
         self.didChangeValue(sender: self.dashBoardHeaderView.segmentedControl)
     }
-
+    
     func setStyle() {
         self.view.backgroundColor = UIColor(resource: .white000)
         self.navigationController?.isNavigationBarHidden = true
@@ -154,7 +154,7 @@ private extension DashBoardViewController {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(createTravelButton.snp.top)
         }
-
+        
         navigationTitle.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).offset(ScreenUtils.getHeight(24))
             $0.leading.equalToSuperview().inset(ScreenUtils.getWidth(24))
@@ -218,7 +218,7 @@ private extension DashBoardViewController {
     }
     
     func setGradient() {
-        gradientView.setGradient(firstColor: UIColor(red: 1, green: 1, blue: 1, alpha: 0), 
+        gradientView.setGradient(firstColor: UIColor(red: 1, green: 1, blue: 1, alpha: 0),
                                  secondColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1),
                                  axis: .vertical)
     }
@@ -249,7 +249,7 @@ private extension DashBoardViewController {
             getAllTravelData(sta: "incomplete")
         } else {
             self.segmentIndex = 1
-
+            
             getAllTravelData(sta: "complete")
         }
         
@@ -269,7 +269,7 @@ extension DashBoardViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = dashBoardCollectionView.dequeueReusableCell(withReuseIdentifier: DashBoardCollectionViewCell.cellIdentifier, for: indexPath) as? DashBoardCollectionViewCell 
+        guard let cell = dashBoardCollectionView.dequeueReusableCell(withReuseIdentifier: DashBoardCollectionViewCell.cellIdentifier, for: indexPath) as? DashBoardCollectionViewCell
         else { return UICollectionViewCell() }
         cell.tripStatus = self.tripStatus
         cell.travelDetailData = travelListDummy?.trips[indexPath.row]
@@ -293,14 +293,14 @@ extension DashBoardViewController: UICollectionViewDelegate {
 
 extension DashBoardViewController: UICollectionViewDelegateFlowLayout {
     /// minimun item spacing
-    func collectionView(_ collectionView: UICollectionView, 
+    func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 12
     }
     
     /// cell size
-    func collectionView(_ collectionView: UICollectionView, 
+    func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = ScreenUtils.getWidth(327)
@@ -309,10 +309,10 @@ extension DashBoardViewController: UICollectionViewDelegateFlowLayout {
     }
     
     /// content margin
-    func collectionView(_ collectionView: UICollectionView, 
+    func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: ScreenUtils.getHeight(20), 
+        return UIEdgeInsets(top: ScreenUtils.getHeight(20),
                             left: ScreenUtils.getWidth(24),
                             bottom: ScreenUtils.getHeight(20),
                             right: ScreenUtils.getWidth(24))

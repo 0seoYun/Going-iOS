@@ -12,11 +12,9 @@ final class DashBoardCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
     
     var tripStatus: String = ""
-
+    
     var travelDetailData: Trip? {
         didSet {
-            setGradient()
-            
             guard let detailData = travelDetailData else { return }
             
             self.travelTitleLabel.text = detailData.title
@@ -29,7 +27,7 @@ final class DashBoardCollectionViewCell: UICollectionViewCell {
                 self.calendarImageView.tintColor = UIColor(resource: .gray200)
                 self.travelStateBackgroundView.backgroundColor = UIColor(resource: .gray100)
                 self.travelStateLabel.textColor = UIColor(resource: .gray200)
-           
+                
             } else {
                 if detailData.day <= 0 {
                     self.travelStateLabel.text = "여행 중"
@@ -44,11 +42,11 @@ final class DashBoardCollectionViewCell: UICollectionViewCell {
             }
         }
     }
-
+    
     // MARK: - UI Components
-
+    
     private let travelTitleLabel = DOOLabel(font: .pretendard(.body2_medi), color: UIColor(resource: .gray700))
-
+    
     private let calendarImageView: UIImageView = {
         let img = UIImageView()
         img.image = UIImage(resource: .icCalendar)
@@ -65,7 +63,7 @@ final class DashBoardCollectionViewCell: UICollectionViewCell {
     }()
     
     private let travelStateLabel = DOOLabel(font: .pretendard(.detail2_bold), color: UIColor(resource: .red500))
-
+    
     private let travelStateGradientView = UIView()
     
     private let travelStateWhiteView: UIView = {
@@ -82,6 +80,11 @@ final class DashBoardCollectionViewCell: UICollectionViewCell {
         setStyle()
         setHierarchy()
         setLayout()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setGradient()
     }
     
     required init?(coder: NSCoder) {
@@ -101,8 +104,8 @@ private extension DashBoardCollectionViewCell {
         self.addSubviews(calendarImageView,
                          travelDateLabel,
                          travelTitleLabel,
-                         travelStateWhiteView,
-                         travelStateGradientView)
+                         travelStateGradientView,
+                         travelStateWhiteView)
         
         travelStateWhiteView.addSubview(travelStateBackgroundView)
         
@@ -128,7 +131,7 @@ private extension DashBoardCollectionViewCell {
         
         travelStateWhiteView.snp.makeConstraints {
             $0.top.trailing.bottom.equalToSuperview()
-            $0.leading.equalTo(travelStateBackgroundView.snp.leading).offset(4)
+            $0.leading.equalTo(travelStateBackgroundView.snp.leading).offset(-4)
         }
         
         travelStateGradientView.snp.makeConstraints {
@@ -150,8 +153,18 @@ private extension DashBoardCollectionViewCell {
     }
     
     func setGradient() {
-        travelStateGradientView.setGradient(firstColor: UIColor(red: 1, green: 1, blue: 1, alpha: 0),
-                                            secondColor: UIColor(red: 1, green: 1, blue: 1, alpha: 1),
-                                            axis: .horizontal)
+        // 기존 그라디언트 레이어 제거
+        travelStateGradientView.layer.sublayers?.removeAll(where: { $0 is CAGradientLayer })
+        
+        // 새 그라디언트 레이어 생성 및 설정
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = travelStateGradientView.bounds
+        gradientLayer.colors = [UIColor(red: 1, green: 1, blue: 1, alpha: 0).cgColor,
+                                UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
+        
+        // 그라디언트 레이어를 뷰의 레이어에 추가
+        travelStateGradientView.layer.addSublayer(gradientLayer)
     }
 }

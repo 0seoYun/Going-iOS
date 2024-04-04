@@ -26,7 +26,7 @@ final class EmptyUserTestView: UIView {
     }()
     
     let emptyDescLabel: DOOLabel = {
-        let label = DOOLabel(font: .pretendard(.body3_bold), 
+        let label = DOOLabel(font: .pretendard(.body3_bold),
                              color: UIColor(resource: .gray200),
                              text: "여행 캐릭터 검사를 아직 진행하지 않았어요\n지금 바로 나를 대신 할 여행 캐릭터를 만나보세요!",
                              numberOfLine: 2)
@@ -45,7 +45,7 @@ final class EmptyUserTestView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-                
+        
         setStyle()
         setHierarchy()
         setLayout()

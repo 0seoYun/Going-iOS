@@ -179,7 +179,7 @@ private extension CreateTravelViewController {
     
     func travelNameTextFieldCheck() {
         guard let text = travelNameView.travelNameTextField.text else { return }
-        travelNameView.characterCountLabel.text = "\(text.count) / 15"
+        travelNameView.characterCountLabel.text = "\(text.count)/15"
         
         if text.count >  15 {
             travelNameView.travelNameTextField.textColor = UIColor(resource: .red500)
