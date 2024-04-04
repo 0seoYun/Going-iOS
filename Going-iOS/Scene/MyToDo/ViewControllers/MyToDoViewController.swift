@@ -80,6 +80,14 @@ final class MyToDoViewController: UIViewController {
         return imgView
     }()
     
+    private let screenView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(resource: .gray50)
+        return view
+    }()
+    
+    var gradientView: UIView = UIView()
+
     
     // MARK: - Properties
     
@@ -151,13 +159,25 @@ final class MyToDoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         hideTabbar()
         setTsegmentIndex()
-
+        setGradient()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        setGradient()
     }
 }
 
 // MARK: - Private method
 
 private extension MyToDoViewController {
+    
+    func setGradient() {
+        gradientView.setGradient(
+            firstColor: UIColor(red: 1, green: 1, blue: 1, alpha: 0),
+            secondColor: UIColor(resource: .gray50),
+            axis: .horizontal)
+    }
+    
     func setTsegmentIndex() {
         if self.segmentIndex == 0 {
             getToDoData(progress: "incomplete")
@@ -183,6 +203,8 @@ private extension MyToDoViewController {
         self.view.addSubviews(navigationBarview, scrollView, addToDoButton)
         scrollView.addSubviews(contentView, stickyMyToDoHeaderView)
         contentView.addSubviews(tripHeaderView,
+                                screenView,
+                                gradientView,
                                 myToDoMainImageView,
                                 myToDoHeaderView,
                                 myToDoCollectionView,
@@ -212,6 +234,20 @@ private extension MyToDoViewController {
             $0.leading.trailing.equalToSuperview()
             $0.top.equalToSuperview()
             $0.height.equalTo(ScreenUtils.getHeight(102))
+        }
+        
+        screenView.snp.makeConstraints {
+            $0.top.equalTo(tripHeaderView)
+            $0.width.equalTo(ScreenUtils.getWidth(117))
+            $0.trailing.equalToSuperview().inset(ScreenUtils.getWidth(16))
+            $0.height.equalTo(ScreenUtils.getHeight(50))
+        }
+        
+        gradientView.snp.makeConstraints {
+            $0.top.equalTo(tripHeaderView)
+            $0.trailing.equalTo(screenView.snp.leading)
+            $0.width.equalTo(ScreenUtils.getWidth(30))
+            $0.height.equalTo(ScreenUtils.getHeight(30))
         }
         
         myToDoMainImageView.snp.makeConstraints {

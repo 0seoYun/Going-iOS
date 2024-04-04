@@ -138,7 +138,9 @@ private extension TripHeaderView {
 
     func setHierarchy() {
         self.addSubviews(tripHeaderStackView)
-        tripHeaderStackView.addArrangedSubviews(tripNameLabel, tripDdayLabel, tripDateLabel)
+        tripHeaderStackView.addArrangedSubviews(tripNameLabel,
+                                                tripDdayLabel,
+                                                tripDateLabel)
     }
 
     func setLayout() {
