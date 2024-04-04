@@ -104,8 +104,9 @@ private extension DashBoardCollectionViewCell {
         self.addSubviews(calendarImageView,
                          travelDateLabel,
                          travelTitleLabel,
-                         travelStateWhiteView,
-                         travelStateGradientView)
+                         travelStateGradientView,
+                         travelStateWhiteView
+                         )
         
         travelStateWhiteView.addSubview(travelStateBackgroundView)
         
