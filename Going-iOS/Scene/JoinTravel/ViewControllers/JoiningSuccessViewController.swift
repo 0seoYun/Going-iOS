@@ -58,7 +58,12 @@ final class JoiningSuccessViewController: UIViewController {
     
     private let dDayLabel = DOOLabel(font: .pretendard(.detail2_bold), color: UIColor(resource: .red500))
     
-    private let travelTitleLabel = DOOLabel(font: .pretendard(.head3), color: UIColor(resource: .gray700))
+    private let travelTitleLabel: DOOLabel = {
+        let label = DOOLabel(font: .pretendard(.head3), color: UIColor(resource: .gray700))
+        label.lineBreakMode = .byTruncatingTail
+        return label
+
+    }()
     
     private let dateLabel = DOOLabel(font: .pretendard(.detail3_regular), color: UIColor(resource: .gray300))
     
@@ -72,7 +77,7 @@ final class JoiningSuccessViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        travelTitleLabel.lineBreakMode = .byTruncatingTail
         setStyle()
         setHierarchy()
         setLayout()
@@ -133,6 +138,7 @@ private extension JoiningSuccessViewController {
             $0.top.equalTo(dDayLabelBackgroundView.snp.bottom).offset(ScreenUtils.getHeight(8))
             $0.centerX.equalTo(dDayLabelBackgroundView)
             $0.height.equalTo(ScreenUtils.getHeight(30))
+            $0.width.equalTo(ScreenUtils.getWidth(230))
         }
         
         dateLabel.snp.makeConstraints {

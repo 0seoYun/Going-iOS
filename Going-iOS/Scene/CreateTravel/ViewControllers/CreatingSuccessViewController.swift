@@ -66,7 +66,11 @@ final class CreatingSuccessViewController: UIViewController {
     
     private let dDayLabel = DOOLabel(font: .pretendard(.detail2_bold), color: UIColor(resource: .red500))
   
-    private let travelTitleLabel = DOOLabel(font: .pretendard(.head3), color: UIColor(resource: .gray700))
+    private let travelTitleLabel: DOOLabel = {
+        let label = DOOLabel(font: .pretendard(.head3), color: UIColor(resource: .gray700))
+        label.lineBreakMode = .byTruncatingTail
+        return label
+    }()
   
     private let dateLabel = DOOLabel(font: .pretendard(.detail1_regular), color: UIColor(resource: .gray300))
     
@@ -179,6 +183,7 @@ private extension CreatingSuccessViewController {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(dDayLabelBackgroundView.snp.bottom).offset(ScreenUtils.getHeight(8))
             $0.height.equalTo(ScreenUtils.getHeight(30))
+            $0.width.equalTo(ScreenUtils.getWidth(230))
         }
         
         dateLabel.snp.makeConstraints {
