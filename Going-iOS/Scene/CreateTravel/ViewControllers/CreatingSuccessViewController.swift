@@ -67,7 +67,9 @@ final class CreatingSuccessViewController: UIViewController {
     private let dDayLabel = DOOLabel(font: .pretendard(.detail2_bold), color: UIColor(resource: .red500))
   
     private let travelTitleLabel: DOOLabel = {
-        let label = DOOLabel(font: .pretendard(.head3), color: UIColor(resource: .gray700))
+        let label = DOOLabel(font: .pretendard(.head3), 
+                             color: UIColor(resource: .gray700),
+                             alignment: .center)
         label.lineBreakMode = .byTruncatingTail
         return label
     }()
